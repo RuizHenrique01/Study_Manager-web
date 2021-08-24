@@ -1,0 +1,13 @@
+.input-default{
+    width: 100%;
+    background-color: transparent;
+    border: 1px var(--primary-color) solid;
+    border-radius: 10px;
+    padding: .5em 1em;
+    color: white;
+    font-size: 1em;
+    margin: 1em .5em;
+    box-sizing: border-box;
+    outline: none;
+}
+

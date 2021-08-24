@@ -1,0 +1,12 @@
+.button-default{
+    width: min-content;
+    background-color: var(--primary-color);
+    text-align: center;
+    padding: .5em 1.5em;
+    font-size: 1em;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    margin: 1em .5em;
+    box-sizing: border-box;
+}
