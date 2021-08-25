@@ -11,12 +11,16 @@ const Login = () => {
             </legend>
 
             <label className="login-label">Email:</label>
-            <Input type="email" required={true}/>
+            <Input type="email" required={true} />
 
             <label className="login-label">Password:</label>
-            <Input type="password" required={true}/>
+            <Input type="password" required={true} />
 
-            <Button name="Entrar"/>
+            <div className="login-button">
+                <Button className="login-button">Entrar</Button>
+            </div>
+
+            <a className="login-link" href="/signup">Ainda não possui conta? Cadastre-se aqui!</a>
         </form>
     );
 }

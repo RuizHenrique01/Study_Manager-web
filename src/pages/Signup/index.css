@@ -1,6 +1,6 @@
-.login-form{
+.signup-form{
     width: 70%;
-    margin: 25vh auto;
+    margin: 20vh auto;
     padding: 0.5em;
     border-radius: 5px;
     border: 1px var(--primary-color) solid;
@@ -9,42 +9,33 @@
     align-items: center;
 }
 
-.login-title{
+.signup-title{
     color: white;
 }
 
-.login-label{
+.signup-label{
     color: white;
     align-self: flex-start;
 }
 
-.login-button{
+.signup-button{
     margin: 1em .5em;
 }
 
-.login-link{
-    font-size: .6em;
-    color: var(--secondary-color);
-}
-
-.login-link:active{
-    color: var(--secondary-color);
-}
-
 @media screen and (min-width: 36em) {
-    .login-form{
+    .signup-form{
         width: 60%;
     }
 }
 
 @media screen and (min-width: 48em) {
-    .login-form{
+    .signup-form{
         width: 50%;
     }
 }
 
 @media screen and (min-width: 62em) {
-    .login-form{
+    .signup-form{
         width: 30%;
     }
 }
