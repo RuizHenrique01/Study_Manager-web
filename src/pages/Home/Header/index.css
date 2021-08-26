@@ -1,0 +1,19 @@
+.home-header{
+    width: 100%;
+    height: auto;
+    background-color: var(--surface-color);
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    padding: 1em .5em;
+}
+
+.home-header-button{
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    border: .5px var(--primary-color) solid;
+    outline: none;
+}
+

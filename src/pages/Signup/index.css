@@ -1,5 +1,6 @@
 .signup-form{
     width: 70%;
+    background-color: var(--surface-color);
     margin: 20vh auto;
     padding: 0.5em;
     border-radius: 5px;
@@ -20,6 +21,15 @@
 
 .signup-button{
     margin: 1em .5em;
+}
+
+.signup-link{
+    font-size: .6em;
+    color: var(--secondary-color);
+}
+
+.signup-link:active{
+    color: var(--secondary-color);
 }
 
 @media screen and (min-width: 36em) {

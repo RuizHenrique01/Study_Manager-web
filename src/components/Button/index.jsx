@@ -1,9 +1,9 @@
 import { React } from "react"
 import "./index.css"
 
-const Button = ({ children }) => {
+const Button = ({ handleClick ,children }) => {
     return (
-        <button className="button-default">
+        <button className="button-default" onClick={() => handleClick()}>
             {children}
         </button>
     );
