@@ -1,0 +1,30 @@
+.project-conteiner{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    background-color: var(--surface-color);
+    padding: .5em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.project-title{
+    font-size: 1em;
+    color: white;
+    flex: 2;
+}
+
+.project-button{
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    border: none;
+    margin-left: 1em;
+    background-color: transparent;
+}
+
+.project-icon{
+    width: 100%;
+    height: 100%;
+}

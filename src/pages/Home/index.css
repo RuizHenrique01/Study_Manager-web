@@ -1,0 +1,17 @@
+.home-button{
+    width: 3em;
+    height: 3em;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 50%;
+    position: fixed;
+    right: 2em;
+    bottom: 2em;
+    box-sizing: border-box;
+}
+
+.home-button::before{
+    content: "+";
+    font-size: 2em;
+}
