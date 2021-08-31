@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css'
-import userImage from '../../../assets/user.svg'
+import userImage from '~/assets/user.svg'
 
 const Header = () => {
     return (

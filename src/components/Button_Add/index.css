@@ -1,4 +1,4 @@
-.home-button{
+.button-add{
     width: 3em;
     height: 3em;
     background-color: var(--secondary-color);
@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 
-.home-button::before{
+.button-add::before{
     content: "+";
     font-size: 2em;
 }

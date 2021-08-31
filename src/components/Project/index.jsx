@@ -1,6 +1,6 @@
 import React from 'react';
-import infoImage from '../../assets/info.svg';
-import crossImage from '../../assets/cross.svg';
+import infoImage from '~/assets/info.svg';
+import crossImage from '~/assets/cross.svg';
 import './index.css'
 
 const Project = ({title}) => {
