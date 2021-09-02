@@ -9,11 +9,11 @@ const Project = ({title}) => {
             <p className="project-title">{title}</p>
 
             <button className="project-button">
-                <img className="project-icon" src={infoImage} alt="Inco de informações"/>
+                <img className="project-icon" src={infoImage} alt="Icone de informações"/>
             </button>
 
             <button className="project-button">
-                <img className="project-icon" src={crossImage} alt="Inco de informações"/>
+                <img className="project-icon" src={crossImage} alt="Icone de informações"/>
             </button>
         </div>
     );
