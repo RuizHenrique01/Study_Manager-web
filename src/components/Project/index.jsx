@@ -6,7 +6,7 @@ import './index.css'
 const Project = ({title}) => {
     return (
         <div className="project-conteiner">
-            <p className="project-title">{title}</p>
+            <h3 className="project-title">{title}</h3>
 
             <button className="project-button">
                 <img className="project-icon" src={infoImage} alt="Icone de informações"/>
