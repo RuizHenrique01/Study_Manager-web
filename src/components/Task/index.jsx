@@ -11,7 +11,7 @@ const Task = () => {
                 id="task-chk" tabIndex="1"/>
             <label className="task-title" for="task-chk">
                 <span className="task-check" />
-                <h3>Tarefa número 1</h3>
+                <span>Tarefa número 1</span>
             </label>
 
             <button className="task-button" tabIndex="2">

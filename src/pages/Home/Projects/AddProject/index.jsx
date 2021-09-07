@@ -4,7 +4,7 @@ import crossImage from '~/assets/cross.svg';
 import Box from '~/components/Box';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
-import './index.css'
+import './index.css';
 
 const AddProject = ({handleClickClose}) => {
     return (
@@ -18,10 +18,10 @@ const AddProject = ({handleClickClose}) => {
             </legend>
 
             <label className="add-project-label">Nome:</label>
-            <Input />
+            <Input type="text" required={true}/>
 
             <label className="add-project-label">Descrição:</label>
-            <Input />
+            <Input type="text" />
 
             <div className="add-project-button">
                 <Button>

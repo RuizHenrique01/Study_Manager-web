@@ -9,7 +9,6 @@ const Projects = () => {
 
     const handleOpenBox = () =>{
         setIsBoxOpen(!isBoxOpen);
-        console.log(isBoxOpen);
     }
 
     return (

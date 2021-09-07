@@ -6,9 +6,16 @@
     position: absolute;
     box-sizing: border-box;
     top:0;
-    z-index: 3;
+    z-index: 1;
     justify-content: center;
     align-items: center;
+}
+
+.box-background{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .box-form{
@@ -21,6 +28,7 @@
     display: flex;
     flex-direction: column;
     padding: .5em;
+    z-index: 3;
     align-items: center;
 }
 

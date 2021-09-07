@@ -1,0 +1,34 @@
+.box-close-button{
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    align-self: flex-end;
+}
+
+.box-icon-button{
+    width: 100%;
+    height: 100%;
+}
+
+.add-task-title{
+    align-self: flex-start;
+    color: white;
+}
+
+.add-task-label{
+    align-self: flex-start;
+    color: white;
+}
+
+.input-date-task{
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    align-self: flex-start;
+}
+
+.add-task-button{
+    align-self: flex-end;
+}
