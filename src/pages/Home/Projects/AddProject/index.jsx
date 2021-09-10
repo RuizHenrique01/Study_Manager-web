@@ -6,7 +6,7 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import './index.css';
 
-const AddProject = ({handleClickClose}) => {
+const AddProject = ({ handleClickClose }) => {
     return (
         <Box handleClick={handleClickClose}>
             <button className="box-close-button" onClick={() => handleClickClose()}>
@@ -18,10 +18,14 @@ const AddProject = ({handleClickClose}) => {
             </legend>
 
             <label className="add-project-label">Nome:</label>
-            <Input type="text" required={true}/>
+            <div className="add-project-input">
+                <Input type="text" required={true} />
+            </div>
 
             <label className="add-project-label">Descrição:</label>
-            <Input type="text" />
+            <div className="add-project-input">
+                <Input type="text" />
+            </div>
 
             <div className="add-project-button">
                 <Button>

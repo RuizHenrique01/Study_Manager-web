@@ -22,10 +22,14 @@
     color: white;
 }
 
+.add-task-input{
+    width: 100%;
+    margin: 1em 0;
+}
+
 .input-date-task{
     width: 50%;
-    margin: 0;
-    padding: 0;
+    margin: 1em 0;
     align-self: flex-start;
 }
 

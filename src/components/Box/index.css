@@ -35,7 +35,6 @@
 @media screen and (min-width: 31.25em) {
     .box-form{
         width: 70%;
-        min-height: 60vh;
-        justify-content: space-between;
+        min-height: 30vh;
     }
 }

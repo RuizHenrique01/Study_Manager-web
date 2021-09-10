@@ -22,6 +22,11 @@
     color: white;
 }
 
+.add-project-input{
+    width: 100%;
+    margin: 1em 0;
+}
+
 .add-project-button{
     align-self: flex-end;
 }

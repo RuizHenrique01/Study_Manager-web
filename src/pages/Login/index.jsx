@@ -33,12 +33,16 @@ const Login = () => {
             </legend>
 
             <label className="login-label">Email:</label>
-            <Input type="email" value={email}
-                onChange={handleInputEmail} required={true} />
+            <div className="login-input">
+                <Input type="email" value={email}
+                    onChange={handleInputEmail} required={true} />
+            </div>
 
             <label className="login-label">Password:</label>
-            <Input type="password" value={password}
-                onChange={handleInputPassword} required={true} />
+            <div className="login-input">
+                <Input type="password" value={password}
+                    onChange={handleInputPassword} required={true} />
+            </div>
 
             <div className="login-button">
                 <Button handleClick={handleLogin}>Entrar</Button>

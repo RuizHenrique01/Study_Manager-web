@@ -20,11 +20,11 @@ const Signup = () => {
 
     const validateEmail = /\S+@\S+\.\S+/.test(email);
 
-    const handleInputName = (e) =>{
+    const handleInputName = (e) => {
         setName(e.target.value);
     }
 
-    const handleInputUsername = (e) =>{
+    const handleInputUsername = (e) => {
         setUsername(e.target.value);
     }
 
@@ -43,20 +43,28 @@ const Signup = () => {
             </legend>
 
             <label className="signup-label">Name:</label>
-            <Input type="text" value={name}
-                onChange={handleInputName} required={true} />
+            <div className="signup-input">
+                <Input type="text" value={name}
+                    onChange={handleInputName} required={true} />
+            </div>
 
             <label className="signup-label">Username:</label>
-            <Input type="text" value={username}
-                onChange={handleInputUsername} required={true} />
+            <div className="signup-input">
+                <Input type="text" value={username}
+                    onChange={handleInputUsername} required={true} />
+            </div>
 
             <label className="signup-label">Email:</label>
-            <Input type="email" value={email}
-                onChange={handleInputEmail} required={true} />
+            <div className="signup-input">
+                <Input type="email" value={email}
+                    onChange={handleInputEmail} required={true} />
+            </div>
 
             <label className="signup-label">Password:</label>
-            <Input type="password" value={password}
-                onChange={handleInputPassword} required={true} />
+            <div className="signup-input">
+                <Input type="password" value={password}
+                    onChange={handleInputPassword} required={true} />
+            </div>
 
             <div className="signup-button">
                 <Button handleClick={handleLogin}>Cadastrar</Button>

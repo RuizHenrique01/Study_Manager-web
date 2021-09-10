@@ -18,13 +18,14 @@ const AddTask = ({ handleClickClose }) => {
             </legend>
 
             <label className="add-task-label">Nome:</label>
-            <Input type="text" required={true} />
+            <div className="add-task-input">
+                <Input type="text" required={true} />
+            </div>
 
             <label className="add-task-label">Descrição:</label>
-            <Input type="text" required={true} />
-
-            <label className="add-task-label">Descrição:</label>
-            <Input type="text" />
+            <div className="add-task-input">
+                <Input type="text" required={true} />
+            </div>
 
             <label className="add-task-label">Data de Entrega:</label>
             <div className="input-date-task">
