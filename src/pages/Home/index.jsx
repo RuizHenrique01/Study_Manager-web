@@ -1,16 +1,16 @@
 import React from 'react';
-
-import Header from '~/components/Header'; 
-//import Projects from './Projects';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Header from '~/components/Header';
+import Projects from './Projects';
 import Tasks from './Tasks';
 
 const Home = () => {
     return (
-        <>
-        <Header/>
-
-        <Tasks />
-        </>
+        <Router>
+            <Header />
+            <Route path="/home/project/:id/tasks" exact component={Tasks}/>
+            <Route path="/home" exact component={Projects}/>
+        </Router>
     );
 };
 
