@@ -8,11 +8,56 @@
 .perfil-flex{
     flex: 100%;
     display: flex;
+    margin-top: 7vh;
+    padding: 1em 0;    
     flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.perfil-flex:nth-child(2){
+    padding-left: 0;
+}
+
+.perfil-foto-button{
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    border: .5px var(--primary-color) solid;
+    outline: none;
 }
 
 .perfil-foto{
-    width: 10vh;
-    height: 10vh;
-    align-self: center;
+    width: 80%;
+    height: 80%;
+}
+
+.perfil-form{
+    width: 100%;
+}
+
+.perfil-label{
+    color: white;
+    align-self: flex-start;
+}
+
+.perfil-input{
+    width: 100%;
+    margin: 1em 0;
+}
+
+.perfil-button{
+    margin: 1em .5em;
+}
+
+@media screen and (min-width: 48em) {
+    .perfil-main{
+        width: 80%;
+        margin: auto;
+    }
+
+    .perfil-flex{
+        flex: 50%;
+    }
 }
