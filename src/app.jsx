@@ -12,7 +12,7 @@ const App = () => {
             <Route path="/signup" exact component={Signup} />
             <Route path={[
                 "/home",
-                "/home/project/:id/tasks"
+                "/project/:id/tasks"
             ]} exact component={Home} />
             <Route path="/perfil" exact component={Perfil} />
         </Router>
