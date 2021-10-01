@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import instance from '~/services/api'
 import { useHistory } from "react-router-dom";
 import Button from '~/components/Button';
 import Input from '~/components/Input';
@@ -11,12 +12,28 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        if (email && validateEmail && password)
-            history.push('/home');
+    const handleLogin = async() => {
+        if (email && validateEmail && password){
+            const token = await handleSession({email, password});
+            console.log(token);
+            if(token.status !== 404){
+                history.push('/home');
+            }
+        }
     }
 
     const validateEmail = /\S+@\S+\.\S+/.test(email);
+
+    const handleSession = async ({ email, password }) => {
+        const token = await instance.post('/user/login', {
+            email: email,
+            password: password
+        }, {
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        return token;
+    }
 
     const handleInputEmail = (e) => {
         setEmail(e.target.value);
@@ -45,7 +62,7 @@ const Login = () => {
             </div>
 
             <div className="login-button">
-                <Button handleClick={handleLogin}>Entrar</Button>
+                <Button type='button' handleClick={handleLogin}>Entrar</Button>
             </div>
 
             <a className="login-link" href="/signup">Ainda não possui conta? Cadastre-se aqui!</a>

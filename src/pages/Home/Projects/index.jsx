@@ -3,7 +3,6 @@ import Project from '~/components/Project';
 import ButtonAdd from '~/components/Button_Add';
 import AddProject from './AddProject';
 import './index.css';
-
 import instance from '~/services/api'
 
 const Projects = () => {
@@ -19,8 +18,7 @@ const Projects = () => {
 
         const { data } = await instance.get("/projects", {
             headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmZm9uc29AZ21haWwuY29tIiwidXNlcmlkIjoiNjBlZWQ5MzUyM2EzMDUwOWNjNWVhZGI4IiwiaWF0IjoxNjMyMzE3NTQ0LCJleHAiOjE2MzI0MDM5NDR9.C_fKMp81go8pqCqjVN2FAZQ09JT9gkCdwRrSF_nncpk",
-                "userId": "60eed93523a30509cc5eadb8"
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmZm9uc29AZ21haWwuY29tIiwidXNlcmlkIjoiNjBlZWQ5MzUyM2EzMDUwOWNjNWVhZGI4IiwiaWF0IjoxNjMyOTQyODExLCJleHAiOjE2MzMwMjkyMTF9.t1tmM9RTf8rlIOoddOjngDH8DwxphR8D-blpuNrdNiE",
             }
         });
 
@@ -31,7 +29,7 @@ const Projects = () => {
 
         getProjects();
 
-    }, []);
+    }, [isBoxOpen]);
 
     return (
         <>
@@ -39,7 +37,7 @@ const Projects = () => {
 
                 {
                     projects.map(result => {
-                        return <Project title={result.name} />
+                        return <Project id={result.id} title={result.name} />
                     })
                 }
 
