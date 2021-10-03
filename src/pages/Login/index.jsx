@@ -1,28 +1,33 @@
-import { React, useState } from "react";
+import { React } from "react";
 import instance from '~/services/api'
 import { useHistory } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 import Button from '~/components/Button';
-import Input from '~/components/Input';
+import InputForm from '~/components/InputForm';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import './index.css';
+
+const schema = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+}).required();
 
 const Login = () => {
 
+    const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
     const history = useHistory();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleLogin = async() => {
-        if (email && validateEmail && password){
-            const token = await handleSession({email, password});
-            console.log(token);
-            if(token.status !== 404){
-                history.push('/home');
-            }
+    const onSubmit = async ({ email, password }) => {
+        const token = await handleSession({ email, password });
+        
+        if (token) {
+            clearErrors("email");
+            history.push('/home');
         }
     }
-
-    const validateEmail = /\S+@\S+\.\S+/.test(email);
 
     const handleSession = async ({ email, password }) => {
         const token = await instance.post('/user/login', {
@@ -30,39 +35,37 @@ const Login = () => {
             password: password
         }, {
             headers: { 'Content-Type': 'application/json' }
+        }).catch(() => {
+            setError("email", {
+                message: "Email/Password is incorrect!",
+            });
+
+            return false;
         });
 
         return token;
     }
 
-    const handleInputEmail = (e) => {
-        setEmail(e.target.value);
-    }
-
-    const handleInputPassword = (e) => {
-        setPassword(e.target.value);
-    }
-
     return (
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <legend className="login-title">
                 <h3>Login</h3>
             </legend>
 
+            {errors.email && <span className="span-error-message">{errors.email.message}</span>}
+
             <label className="login-label">Email:</label>
             <div className="login-input">
-                <Input type="email" value={email}
-                    onChange={handleInputEmail} required={true} />
+                <InputForm type="email" name="email" register={register} />
             </div>
 
             <label className="login-label">Password:</label>
             <div className="login-input">
-                <Input type="password" value={password}
-                    onChange={handleInputPassword} required={true} />
+                <InputForm type="password" name="password" register={register} />
             </div>
 
             <div className="login-button">
-                <Button type='button' handleClick={handleLogin}>Entrar</Button>
+                <Button type='submit'>Entrar</Button>
             </div>
 
             <a className="login-link" href="/signup">Ainda não possui conta? Cadastre-se aqui!</a>

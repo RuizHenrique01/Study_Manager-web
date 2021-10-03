@@ -37,6 +37,17 @@
     color: var(--secondary-color);
 }
 
+.span-error-message{
+    font-size: 1em;
+    color: white;
+    padding: 0.2em;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: var(--error-color);
+    margin: 0 0 1em;
+}
+
 @media screen and (min-width: 36em) {
     .login-form{
         width: 60%;

@@ -1,10 +1,11 @@
 import React from 'react';
 import './index.css'
 
-const Input = ({type, value, onChange, placeholder, required, readOnly}) => {
+const Input = ({ type, name, value, onChange, placeholder, required, readOnly }) => {
     return (
-        <input className="input-default" value={value} type={type} onChange={onChange}
-            placeholder={placeholder} required={required} readOnly={readOnly}/>
+        <input className="input-default" name={name} value={value} type={type}
+            onChange={() => { try { onChange() } catch { } }} placeholder={placeholder}
+            required={required} readOnly={readOnly} />
     );
 }
 
