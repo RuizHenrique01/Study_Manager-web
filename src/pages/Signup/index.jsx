@@ -1,73 +1,102 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { useHistory } from "react-router-dom";
+import instance from '~/services/api';
 import Button from '~/components/Button';
-import Input from '~/components/Input';
+import InputForm from '~/components/InputForm';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import './index.css';
+
+const schema = yup.object({
+    name: yup.string().required(),
+    username: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string().min(6).required(),
+    confirm_password: yup.string().min(6).required()
+}).required();
 
 const Signup = () => {
     const history = useHistory();
 
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
 
-    const handleLogin = () => {
-        if (name && username &&
-            email && validateEmail && password)
-            history.push('/home');
+    const onCreateAccount = async ({ name, username, email, password, confirm_password }) => {
+        if (password === confirm_password) {
+            const token = await handleSession({ name, username, email, password });
+
+            if (token) {
+                clearErrors(["email", "confirm_password"]);
+                history.push('/home');
+            }
+        } else {
+            setError("confirm_password", {
+                message: "Password confirmation error!",
+            });
+        }
     }
 
-    const validateEmail = /\S+@\S+\.\S+/.test(email);
+    const handleSession = async ({ name, username, email, password }) => {
+        const token = await instance.post('/user/signup', {
+            name,
+            username,
+            email,
+            password
+        }, {
+            headers: { 'Content-Type': 'application/json' }
+        }).catch(() => {
 
-    const handleInputName = (e) => {
-        setName(e.target.value);
-    }
+            setError("email", {
+                message: "Email already exists!",
+            });
 
-    const handleInputUsername = (e) => {
-        setUsername(e.target.value);
-    }
+            return false;
+        });
 
-    const handleInputEmail = (e) => {
-        setEmail(e.target.value);
-    }
-
-    const handleInputPassword = (e) => {
-        setPassword(e.target.value);
+        return token;
     }
 
     return (
-        <form className="signup-form">
+        <form className="signup-form" onSubmit={handleSubmit(onCreateAccount)}>
             <legend className="signup-title">
                 <h3>Cadastro</h3>
             </legend>
 
+            {errors.email && <span className="span-error-message">
+                {errors.email.message}</span>}
+
+            {errors.confirm_password && <span className="span-error-message">
+                {errors.confirm_password.message}</span>}
+
             <label className="signup-label">Name:</label>
             <div className="signup-input">
-                <Input type="text" value={name}
-                    onChange={handleInputName} required={true} />
+                <InputForm name="name" type="text" register={register} required={true}/>
             </div>
 
             <label className="signup-label">Username:</label>
             <div className="signup-input">
-                <Input type="text" value={username}
-                    onChange={handleInputUsername} required={true} />
+                <InputForm name="username" type="text" register={register} required={true}/>
             </div>
 
             <label className="signup-label">Email:</label>
             <div className="signup-input">
-                <Input type="email" value={email}
-                    onChange={handleInputEmail} required={true} />
+                <InputForm name="email" type="email" register={register} required={true}/>
             </div>
 
             <label className="signup-label">Password:</label>
             <div className="signup-input">
-                <Input type="password" value={password}
-                    onChange={handleInputPassword} required={true} />
+                <InputForm name="password" type="password" register={register} required={true}/>
+            </div>
+
+            <label className="signup-label">Confirm Password:</label>
+            <div className="signup-input">
+                <InputForm name="confirm_password" type="password" register={register} required={true}/>
             </div>
 
             <div className="signup-button">
-                <Button handleClick={handleLogin}>Cadastrar</Button>
+                <Button type="submit">Cadastrar</Button>
             </div>
 
             <a className="signup-link" href="/login">Já possui conta? Clique aqui para o Login!</a>

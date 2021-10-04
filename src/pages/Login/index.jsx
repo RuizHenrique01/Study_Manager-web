@@ -1,5 +1,5 @@
 import { React } from "react";
-import instance from '~/services/api'
+import instance from '~/services/api';
 import { useHistory } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import Button from '~/components/Button';
@@ -22,7 +22,7 @@ const Login = () => {
 
     const onSubmit = async ({ email, password }) => {
         const token = await handleSession({ email, password });
-        
+
         if (token) {
             clearErrors("email");
             history.push('/home');
@@ -52,16 +52,17 @@ const Login = () => {
                 <h3>Login</h3>
             </legend>
 
-            {errors.email && <span className="span-error-message">{errors.email.message}</span>}
+            {errors.email && <span className="span-error-message">
+                {errors.email.message}</span>}
 
             <label className="login-label">Email:</label>
             <div className="login-input">
-                <InputForm type="email" name="email" register={register} />
+                <InputForm type="email" name="email" register={register} required={true}/>
             </div>
 
             <label className="login-label">Password:</label>
             <div className="login-input">
-                <InputForm type="password" name="password" register={register} />
+                <InputForm type="password" name="password" register={register} required={true}/>
             </div>
 
             <div className="login-button">
