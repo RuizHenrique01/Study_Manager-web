@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Project from '~/components/Project';
 import ButtonAdd from '~/components/Button_Add';
 import AddProject from './AddProject';
+import { connect } from 'react-redux';
 import './index.css';
 import instance from '~/services/api'
 
-const Projects = () => {
+const Projects = ({ user_token }) => {
 
     const [projects, setProject] = useState([]);
     const [isBoxOpen, setIsBoxOpen] = useState(false);
@@ -14,11 +15,13 @@ const Projects = () => {
         setIsBoxOpen(!isBoxOpen);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getProjects = async () => {
-
+        const { token } = user_token;
+        
         const { data } = await instance.get("/projects", {
             headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmZm9uc29AZ21haWwuY29tIiwidXNlcmlkIjoiNjBlZWQ5MzUyM2EzMDUwOWNjNWVhZGI4IiwiaWF0IjoxNjMyOTQyODExLCJleHAiOjE2MzMwMjkyMTF9.t1tmM9RTf8rlIOoddOjngDH8DwxphR8D-blpuNrdNiE",
+                "Authorization": `Bearer ${token}`     
             }
         });
 
@@ -29,15 +32,15 @@ const Projects = () => {
 
         getProjects();
 
-    }, [isBoxOpen]);
+    }, [isBoxOpen, getProjects]);
 
     return (
         <>
             <main className="projects-main">
 
                 {
-                    projects.map(result => {
-                        return <Project id={result.id} title={result.name} />
+                    projects.map((result, index) => {
+                        return <Project key={index} id={result.id} title={result.name} />
                     })
                 }
 
@@ -48,4 +51,4 @@ const Projects = () => {
     );
 };
 
-export default Projects;
+export default connect(state => ({ user_token : state }))(Projects);

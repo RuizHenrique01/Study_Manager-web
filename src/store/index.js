@@ -1,14 +1,27 @@
-import createStore from 'redux';
+import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-function reducer(state = {token : ''}, action){
+const INITIAL_STATE = {token : ''};
+
+function reducer(state = INITIAL_STATE , action){
     switch (action.type) {
-        case 'add_token':
-          return { token : state.value }
+        case 'SET_TOKEN':
+          return state = { token : action.token };
         default:
-          return state
+          return state;
       }
 }
 
-const store = createStore(reducer);
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+ 
+const persistedReducer = persistReducer(persistConfig, reducer)
 
-export default store;
+const store = createStore(persistedReducer);
+
+const persistor = persistStore(store)
+
+export { store, persistor };

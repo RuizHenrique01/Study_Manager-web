@@ -28,7 +28,8 @@ const Signup = () => {
             const token = await handleSession({ name, username, email, password });
 
             if (token) {
-                clearErrors(["email", "confirm_password"]);
+                clearErrors(["login", "passwordIsDiferent", "name",
+                    "username", "email", "password", "confirm_password"]);
                 history.push('/home');
             }
         } else {
@@ -48,7 +49,7 @@ const Signup = () => {
             headers: { 'Content-Type': 'application/json' }
         }).catch(() => {
 
-            setError("email", {
+            setError("login", {
                 message: "Email already exists!",
             });
 
@@ -64,36 +65,51 @@ const Signup = () => {
                 <h3>Cadastro</h3>
             </legend>
 
-            {errors.email && <span className="span-error-message">
-                {errors.email.message}</span>}
+            {errors.login && <span className="span-error-message">
+                {errors.login.message}</span>}
 
-            {errors.confirm_password && <span className="span-error-message">
-                {errors.confirm_password.message}</span>}
+            {errors.passwordIsDiferent && <span className="span-error-message">
+                {errors.passwordIsDiferent.message}</span>}
 
             <label className="signup-label">Name:</label>
             <div className="signup-input">
-                <InputForm name="name" type="text" register={register} required={true}/>
+                <InputForm name="name" type="text" register={register}/>
             </div>
+
+            {errors.name && <span className="span-input-error-message">
+                {errors.name.message}</span>}
 
             <label className="signup-label">Username:</label>
             <div className="signup-input">
-                <InputForm name="username" type="text" register={register} required={true}/>
+                <InputForm name="username" type="text" register={register}/>
             </div>
+
+            {errors.username && <span className="span-input-error-message">
+                {errors.username.message}</span>}
 
             <label className="signup-label">Email:</label>
             <div className="signup-input">
-                <InputForm name="email" type="email" register={register} required={true}/>
+                <InputForm name="email" type="email" register={register}/>
             </div>
+
+            {errors.email && <span className="span-input-error-message">
+                {errors.email.message}</span>}
 
             <label className="signup-label">Password:</label>
             <div className="signup-input">
-                <InputForm name="password" type="password" register={register} required={true}/>
+                <InputForm name="password" type="password" register={register}/>
             </div>
+
+            {errors.password && <span className="span-input-error-message">
+                {errors.password.message}</span>}
 
             <label className="signup-label">Confirm Password:</label>
             <div className="signup-input">
-                <InputForm name="confirm_password" type="password" register={register} required={true}/>
+                <InputForm name="confirm_password" type="password" register={register}/>
             </div>
+
+            {errors.confirm_password && <span className="span-input-error-message">
+                {errors.confirm_password.message}</span>}
 
             <div className="signup-button">
                 <Button type="submit">Cadastrar</Button>

@@ -2,6 +2,7 @@ import { React } from "react";
 import instance from '~/services/api';
 import { useHistory } from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
 import Button from '~/components/Button';
 import InputForm from '~/components/InputForm';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +14,7 @@ const schema = yup.object({
     password: yup.string().required(),
 }).required();
 
-const Login = () => {
+const Login = ({ dispatch }) => {
 
     const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
@@ -24,26 +25,27 @@ const Login = () => {
         const token = await handleSession({ email, password });
 
         if (token) {
-            clearErrors("email");
+            clearErrors(["login", "email", "password"]);
+            dispatch({ type: 'SET_TOKEN', token })
             history.push('/home');
         }
     }
 
     const handleSession = async ({ email, password }) => {
-        const token = await instance.post('/user/login', {
-            email: email,
-            password: password
+        const { data } = await instance.post('/user/login', {
+            email,
+            password
         }, {
             headers: { 'Content-Type': 'application/json' }
         }).catch(() => {
-            setError("email", {
+            setError("login", {
                 message: "Email/Password is incorrect!",
             });
 
-            return false;
+            return {data: undefined};
         });
 
-        return token;
+        return data?.token;
     }
 
     return (
@@ -52,18 +54,24 @@ const Login = () => {
                 <h3>Login</h3>
             </legend>
 
-            {errors.email && <span className="span-error-message">
-                {errors.email.message}</span>}
+            {errors.login && <span className="span-error-message">
+                {errors.login.message}</span>}
 
             <label className="login-label">Email:</label>
             <div className="login-input">
-                <InputForm type="email" name="email" register={register} required={true}/>
+                <InputForm type="email" name="email" register={register}/>
             </div>
+
+            {errors.email && <span className="span-input-error-message">
+                {errors.email.message}</span>}
 
             <label className="login-label">Password:</label>
             <div className="login-input">
-                <InputForm type="password" name="password" register={register} required={true}/>
+                <InputForm type="password" name="password" register={register}/>
             </div>
+
+            {errors.password && <span className="span-input-error-message">
+                {errors.password.message}</span>}
 
             <div className="login-button">
                 <Button type='submit'>Entrar</Button>
@@ -74,4 +82,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default connect()(Login);
