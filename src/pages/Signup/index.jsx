@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import instance from '~/services/api';
 import Button from '~/components/Button';
 import InputForm from '~/components/InputForm';
+import ErrorWarning from "~/components/ErrorWarning";
+import ErrorMessage from "~/components/ErrorMessage";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -12,8 +14,8 @@ const schema = yup.object({
     name: yup.string().required(),
     username: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(6).required(),
-    confirm_password: yup.string().min(6).required()
+    password: yup.string().required().min(6),
+    confirm_password: yup.string().required().min(6)
 }).required();
 
 const Signup = () => {
@@ -33,7 +35,7 @@ const Signup = () => {
                 history.push('/home');
             }
         } else {
-            setError("confirm_password", {
+            setError("passwordIsDiferent", {
                 message: "Password confirmation error!",
             });
         }
@@ -65,51 +67,47 @@ const Signup = () => {
                 <h3>Cadastro</h3>
             </legend>
 
-            {errors.login && <span className="span-error-message">
-                {errors.login.message}</span>}
+            {errors.login && <ErrorWarning>
+                {errors.login.message}</ErrorWarning>}
 
-            {errors.passwordIsDiferent && <span className="span-error-message">
-                {errors.passwordIsDiferent.message}</span>}
+            {errors.passwordIsDiferent && <ErrorWarning>
+                {errors.passwordIsDiferent.message}</ErrorWarning>}
 
             <label className="signup-label">Name:</label>
             <div className="signup-input">
                 <InputForm name="name" type="text" register={register}/>
             </div>
 
-            {errors.name && <span className="span-input-error-message">
-                {errors.name.message}</span>}
+            {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
 
             <label className="signup-label">Username:</label>
             <div className="signup-input">
                 <InputForm name="username" type="text" register={register}/>
             </div>
 
-            {errors.username && <span className="span-input-error-message">
-                {errors.username.message}</span>}
+            {errors.username && <ErrorMessage>{errors.username.message}</ErrorMessage>}
 
             <label className="signup-label">Email:</label>
             <div className="signup-input">
                 <InputForm name="email" type="email" register={register}/>
             </div>
 
-            {errors.email && <span className="span-input-error-message">
-                {errors.email.message}</span>}
+            {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 
             <label className="signup-label">Password:</label>
             <div className="signup-input">
                 <InputForm name="password" type="password" register={register}/>
             </div>
 
-            {errors.password && <span className="span-input-error-message">
-                {errors.password.message}</span>}
+            {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
             <label className="signup-label">Confirm Password:</label>
             <div className="signup-input">
                 <InputForm name="confirm_password" type="password" register={register}/>
             </div>
 
-            {errors.confirm_password && <span className="span-input-error-message">
-                {errors.confirm_password.message}</span>}
+            {errors.confirm_password && <ErrorMessage>
+                {errors.confirm_password.message}</ErrorMessage>}
 
             <div className="signup-button">
                 <Button type="submit">Cadastrar</Button>

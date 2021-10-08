@@ -15,7 +15,6 @@ const Projects = ({ user_token }) => {
         setIsBoxOpen(!isBoxOpen);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getProjects = async () => {
         const { token } = user_token;
         
@@ -32,7 +31,8 @@ const Projects = ({ user_token }) => {
 
         getProjects();
 
-    }, [isBoxOpen, getProjects]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ isBoxOpen ]);
 
     return (
         <>
@@ -46,7 +46,7 @@ const Projects = ({ user_token }) => {
 
                 <ButtonAdd handleClick={handleOpenBox} />
             </main>
-            {isBoxOpen ? <AddProject handleClickClose={handleOpenBox} /> : null}
+            {isBoxOpen ? <AddProject handleClickClose={handleOpenBox} token={user_token.token} /> : null}
         </>
     );
 };

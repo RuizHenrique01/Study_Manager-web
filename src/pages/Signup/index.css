@@ -37,24 +37,6 @@
     color: var(--secondary-color);
 }
 
-.span-error-message{
-    font-size: 1em;
-    color: white;
-    padding: 0.2em;
-    border-radius: 5px;
-    box-sizing: border-box;
-    text-align: center;
-    background-color: var(--error-color);
-    margin: 0 0 1em;
-}
-
-.span-input-error-message{
-    font-size: 0.7em;
-    color: var(--error-color);
-    margin: 0 0 1em;
-    align-self: flex-start;
-}
-
 @media screen and (min-width: 36em) {
     .signup-form{
         width: 60%;

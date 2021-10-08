@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import Button from '~/components/Button';
 import InputForm from '~/components/InputForm';
+import ErrorWarning from '~/components/ErrorWarning';
+import ErrorMessage from "~/components/ErrorMessage";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import './index.css';
@@ -54,24 +56,21 @@ const Login = ({ dispatch }) => {
                 <h3>Login</h3>
             </legend>
 
-            {errors.login && <span className="span-error-message">
-                {errors.login.message}</span>}
+            {errors.login && <ErrorWarning>{errors.login.message}</ErrorWarning>}
 
             <label className="login-label">Email:</label>
             <div className="login-input">
                 <InputForm type="email" name="email" register={register}/>
             </div>
 
-            {errors.email && <span className="span-input-error-message">
-                {errors.email.message}</span>}
+            {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 
             <label className="login-label">Password:</label>
             <div className="login-input">
                 <InputForm type="password" name="password" register={register}/>
             </div>
 
-            {errors.password && <span className="span-input-error-message">
-                {errors.password.message}</span>}
+            {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
             <div className="login-button">
                 <Button type='submit'>Entrar</Button>
