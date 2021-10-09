@@ -14,7 +14,7 @@ const Header = () => {
 
     return (
         <header className="home-header">
-            <button className="home-header-button" onClick={handlePerfil}>
+            <button className="home-header-button" type='button' onClick={handlePerfil}>
                 <img className="home-header-image" src={userImage} alt="Imagem do Usuário"/>
             </button>
         </header>

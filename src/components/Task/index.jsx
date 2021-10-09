@@ -3,15 +3,16 @@ import infoImage from '~/assets/info.svg';
 import crossImage from '~/assets/cross.svg';
 import './index.css';
 
-const Task = () => {
+const Task = ({ title, checked }) => {
+
     return (
         <div className="task-conteiner">
 
             <input type="checkbox" className="task-checkbox"
-                id="task-chk" tabIndex="1"/>
-            <label className="task-title" for="task-chk">
+                id="task-chk" tabIndex="1" checked={checked}/>
+            <label className="task-title" htmlFor="task-chk">
                 <span className="task-check" />
-                <span>Tarefa número 1</span>
+                <span>{title}</span>
             </label>
 
             <button className="task-button" tabIndex="2">

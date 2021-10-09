@@ -1,15 +1,11 @@
 import React from 'react';
-import './index.css';
-
 import Button from '~/components/Button';
 import Input from '~/components/Input';
-import Header from '~/components/Header';
 import userImage from '~/assets/user.svg';
+import './index.css';
 
 const Perfil = () => {
     return (
-        <>
-            <Header />
             <main className="perfil-main">
                 <div className="perfil-flex">
                     <button className="perfil-foto-button">
@@ -45,7 +41,6 @@ const Perfil = () => {
                     </form>
                 </div>
             </main>
-        </>
     );
 }
 

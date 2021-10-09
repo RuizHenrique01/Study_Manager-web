@@ -3,8 +3,8 @@ import Project from '~/components/Project';
 import ButtonAdd from '~/components/Button_Add';
 import AddProject from './AddProject';
 import { connect } from 'react-redux';
-import './index.css';
 import instance from '~/services/api'
+import './index.css';
 
 const Projects = ({ user_token }) => {
 
@@ -39,8 +39,8 @@ const Projects = ({ user_token }) => {
             <main className="projects-main">
 
                 {
-                    projects.map((result, index) => {
-                        return <Project key={index} id={result.id} title={result.name} />
+                    projects.map(result => {
+                        return <Project key={result._id} id={result._id} title={result.name} />
                     })
                 }
 

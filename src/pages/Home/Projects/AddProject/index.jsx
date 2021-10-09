@@ -62,7 +62,8 @@ const AddProject = ({ handleClickClose, token }) => {
 
             <label className="add-project-label">Descrição:</label>
             <div className="add-project-input">
-                <Input type="text" name="description" onChange={handleInputDescription} />
+                <Input type="text" name="description"
+                    onChange={handleInputDescription} autoComplete="off" />
             </div>
 
             <div className="add-project-button">
