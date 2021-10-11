@@ -39,12 +39,14 @@ const Tasks = ({ user_token }) => {
             <main className="tasks-main">
                 {
                     tasks.map(result => {
-                        return <Task key={result._id} id={result._id} title={result.name} checked={result.isCompleted}/>
+                        console.log(result);
+                        return <Task key={result._id} id={result._id} idProject={ id } title={result.name}
+                            token={user_token.token} checked={result.isCompleted} />
                     })
                 }
                 <ButtonAdd handleClick={handleOpenBox} />
             </main>
-            {isBoxOpen ? <AddTask handleClickClose={handleOpenBox} token={user_token.token} id={id}/> : null}
+            {isBoxOpen ? <AddTask handleClickClose={handleOpenBox} token={user_token.token} id={id} /> : null}
         </>
     );
 }

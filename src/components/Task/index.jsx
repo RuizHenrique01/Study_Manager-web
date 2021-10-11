@@ -1,16 +1,30 @@
 import React from 'react';
 import infoImage from '~/assets/info.svg';
 import crossImage from '~/assets/cross.svg';
+import instance from '~/services/api';
 import './index.css';
 
-const Task = ({ title, checked }) => {
+const Task = ({ title, id, idProject, token, checked}) => {
+
+    const updateTask = async () => {
+
+       await instance.patch("/projects/" + idProject + "/task" + id,{
+            isCompleted: !checked
+        } ,{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }).catch(() =>{
+            alert('Error updating task, please try again later');
+        });
+    }
 
     return (
         <div className="task-conteiner">
 
-            <input type="checkbox" className="task-checkbox"
-                id="task-chk" tabIndex="1" checked={checked}/>
-            <label className="task-title" htmlFor="task-chk">
+            <input type="checkbox" onChange={updateTask} className="task-checkbox"
+                id={ id } tabIndex="1" defaultChecked={checked}/>
+            <label className="task-title" htmlFor={ id }>
                 <span className="task-check" />
                 <span>{title}</span>
             </label>
