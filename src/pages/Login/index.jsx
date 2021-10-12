@@ -1,13 +1,13 @@
 import { React } from "react";
-import instance from '~/services/api';
 import { useHistory } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SessionServices as session } from "~/modules/session";
 import Button from '~/components/Button';
 import InputForm from '~/components/InputForm';
 import ErrorWarning from '~/components/ErrorWarning';
 import ErrorMessage from "~/components/ErrorMessage";
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import './index.css';
 
@@ -18,36 +18,24 @@ const schema = yup.object({
 
 const Login = ({ dispatch }) => {
 
-    const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({
+    const { register, handleSubmit, setError, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
     const history = useHistory();
 
     const onSubmit = async ({ email, password }) => {
-        const token = await handleSession({ email, password });
+        const data = await session.login({email, password});
 
+        const token = data?.token;
+        
         if (token) {
-            clearErrors(["login", "email", "password"]);
-            dispatch({ type: 'SET_TOKEN', token })
+            dispatch({ type: 'SET_TOKEN', token });
             history.push('/home');
-        }
-    }
-
-    const handleSession = async ({ email, password }) => {
-        const { data } = await instance.post('/user/login', {
-            email,
-            password
-        }, {
-            headers: { 'Content-Type': 'application/json' }
-        }).catch(() => {
+        } else {
             setError("login", {
                 message: "Email/Password is incorrect!",
             });
-
-            return {data: undefined};
-        });
-
-        return data?.token;
+        }
     }
 
     return (

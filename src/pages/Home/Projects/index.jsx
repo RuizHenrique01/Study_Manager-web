@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { ProjectServices as project } from '~/modules/project';
 import Project from '~/components/Project';
 import ButtonAdd from '~/components/Button_Add';
 import AddProject from './AddProject';
-import { connect } from 'react-redux';
-import instance from '~/services/api'
 import './index.css';
 
 const Projects = ({ user_token }) => {
@@ -17,13 +17,9 @@ const Projects = ({ user_token }) => {
 
     const getProjects = async () => {
         const { token } = user_token;
-        
-        const { data } = await instance.get("/projects", {
-            headers: {
-                "Authorization": `Bearer ${token}`     
-            }
-        });
 
+        const data = await project.getProjects({ token });
+  
         setProject(data.projects);
     }
 
@@ -31,8 +27,8 @@ const Projects = ({ user_token }) => {
 
         getProjects();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ isBoxOpen ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isBoxOpen]);
 
     return (
         <>
@@ -41,7 +37,7 @@ const Projects = ({ user_token }) => {
                 {
                     projects.map(result => {
                         return <Project key={result._id} id={result._id} title={result.name} />
-                    })
+                    }) 
                 }
 
                 <ButtonAdd handleClick={handleOpenBox} />
@@ -51,4 +47,4 @@ const Projects = ({ user_token }) => {
     );
 };
 
-export default connect(state => ({ user_token : state }))(Projects);
+export default connect(state => ({ user_token: state }))(Projects);
