@@ -36,7 +36,7 @@ const Projects = ({ user_token }) => {
 
                 {
                     projects.map(result => {
-                        return <Project key={result._id} id={result._id} title={result.name} />
+                        return <Project key={result._id} id={result._id} project={result} />
                     }) 
                 }
 

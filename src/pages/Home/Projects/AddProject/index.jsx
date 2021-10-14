@@ -1,10 +1,10 @@
 import { React, useState } from 'react';
+import { ProjectServices as project } from '~/modules/project';
 import crossImage from '~/assets/cross.svg';
 import Box from '~/components/Box';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import ErrorMessage from '~/components/ErrorMessage';
-import instance from '~/services/api';
 import './index.css';
 
 const AddProject = ({ handleClickClose, token }) => {
@@ -24,17 +24,7 @@ const AddProject = ({ handleClickClose, token }) => {
 
     const createProject = async () => {
         if (name) {
-            await instance.post('/projects', {
-                name: name,
-                description: description
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            }).catch(err => {
-                console.log(err);
-            });
+            await project.createProject({ name, description, token});
 
             handleClickClose();
         } else {

@@ -14,5 +14,23 @@ export const ProjectServices = {
         } catch {
             return undefined;
         }
+    },
+
+    async createProject({ name, description, token }) {
+        try {
+            const response = await instance.post('/projects', {
+                name,
+                description
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+
+            return response.data;
+        } catch {
+            return undefined;
+        }
     }
 }

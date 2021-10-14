@@ -1,10 +1,10 @@
 import { React, useState } from 'react';
+import {TaskServices as task} from '~/modules/task';
 import crossImage from '~/assets/cross.svg';
 import Box from '~/components/Box';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import './index.css';
-import instance from '~/services/api';
 
 const AddTask = ({ handleClickClose, token, id }) => {
 
@@ -26,18 +26,7 @@ const AddTask = ({ handleClickClose, token, id }) => {
 
     const createTask = async () => {
         if (name) {
-            await instance.post("/projects/" + id + "/task", {
-                name,
-                description,
-                date
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            }).catch(err => {
-                console.log(err);
-            });
+            await task.createTask({id, name, description, date, token});
 
             handleClickClose();
         } 
