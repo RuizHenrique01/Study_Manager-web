@@ -24,7 +24,7 @@ const InfoProject = ({ project, handleClickClose }) => {
     return (
         <Box handleClick={handleClickClose}>
 
-            <button className="box-close-button" onClick={() => handleClickClose()}>
+            <button className="box-close-button" onClick={handleClickClose}>
                 <img className="box-icon-button" src={crossImage} alt="Icone de informações" />
             </button>
 
