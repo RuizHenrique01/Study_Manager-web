@@ -2,9 +2,9 @@ import instance from '~/services/api';
 
 export const TaskServices = {
 
-    async createTask({ id, name, description, date, token }) {
+    async createTask({ idProject, name, description, date, token }) {
         try {
-            const response = await instance.post("/projects/" + id + "/task", {
+            const response = await instance.post("/projects/" + idProject + "/task", {
                 name,
                 description,
                 date
@@ -17,7 +17,23 @@ export const TaskServices = {
 
             return response;
         } catch {
-            return undefined; 
+            return undefined;
+        }
+    },
+
+    async updateTask({ id, idProject, isCompleted, token }) {
+        try {
+            const response = await instance.patch("/projects/" + idProject + "/task/" + id, {
+                isCompleted: !isCompleted
+            }, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            
+            return response;
+        } catch {
+            return undefined;
         }
     }
 }

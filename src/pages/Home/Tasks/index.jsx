@@ -40,7 +40,7 @@ const Tasks = ({ user_token }) => {
                 {
                     tasks.map(result => {
                         console.log(result);
-                        return <Task key={result._id} id={result._id} idProject={ id } title={result.name}
+                        return <Task key={result._id} id={result._id} idProject={ id } task={result}
                             token={user_token.token} checked={result.isCompleted} />
                     })
                 }

@@ -26,7 +26,7 @@ const AddTask = ({ handleClickClose, token, id }) => {
 
     const createTask = async () => {
         if (name) {
-            await task.createTask({id, name, description, date, token});
+            await task.createTask({idProject: id, name, description, date, token});
 
             handleClickClose();
         } 
