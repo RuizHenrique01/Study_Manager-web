@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { connect } from 'react-redux';
+import { TaskServices as task } from '~/modules/task';
 import Task from '~/components/Task';
 import ButtonAdd from '~/components/Button_Add';
 import AddTask from './AddTask';
 import './index.css';
-import { connect } from 'react-redux';
-import instance from '~/services/api';
 
 const Tasks = ({ user_token }) => {
 
@@ -13,24 +13,23 @@ const Tasks = ({ user_token }) => {
     const [isBoxOpen, setIsBoxOpen] = useState(false);
     const { id } = useParams();
 
-    const handleOpenBox = () => {
+    function handleOpenBox() {
         setIsBoxOpen(!isBoxOpen);
     }
 
-    const getTasks = async () => {
-        const { token } = user_token;
-
-        await instance.get("/projects/" + id + "/task", {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }).then(response => setTasks(response.data.tasks));
-    }
-
     useEffect(() => {
+        async function getTasks() {
+            const { token } = user_token;
+
+            const response = await task.getTasks({
+                idProject: id,
+                token
+            })
+
+            setTasks(response?.tasks);
+        }
 
         getTasks();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isBoxOpen]);
 
@@ -40,13 +39,12 @@ const Tasks = ({ user_token }) => {
                 {
                     tasks.map(result => {
                         console.log(result);
-                        return <Task key={result._id} id={result._id} idProject={ id } task={result}
-                            token={user_token.token} checked={result.isCompleted} />
+                        return <Task key={result._id} task={result} token={user_token.token} />
                     })
                 }
                 <ButtonAdd handleClick={handleOpenBox} />
             </main>
-            {isBoxOpen ? <AddTask handleClickClose={handleOpenBox} token={user_token.token} id={id} /> : null}
+            {isBoxOpen && <AddTask handleClickClose={handleOpenBox} token={user_token.token} id={id} />}
         </>
     );
 }

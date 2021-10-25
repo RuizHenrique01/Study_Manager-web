@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
@@ -22,12 +22,14 @@ const Login = ({ dispatch }) => {
         resolver: yupResolver(schema)
     });
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = async ({ email, password }) => {
-        const data = await session.login({email, password});
+    async function onSubmit({ email, password }) {
+        setIsLoading(true);
+        const response = await session.login({ email, password });
 
-        const token = data?.token;
-        
+        const token = response?.token;
+
         if (token) {
             dispatch({ type: 'SET_TOKEN', token });
             history.push('/home');
@@ -35,6 +37,8 @@ const Login = ({ dispatch }) => {
             setError("login", {
                 message: "Email/Password is incorrect!",
             });
+
+            setIsLoading(false);
         }
     }
 
@@ -48,20 +52,20 @@ const Login = ({ dispatch }) => {
 
             <label className="login-label">Email:</label>
             <div className="login-input">
-                <InputForm type="email" name="email" register={register}/>
+                <InputForm type="email" name="email" register={register} />
             </div>
 
             {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 
             <label className="login-label">Password:</label>
             <div className="login-input">
-                <InputForm type="password" name="password" register={register}/>
+                <InputForm type="password" name="password" register={register} />
             </div>
 
             {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
             <div className="login-button">
-                <Button type='submit'>Entrar</Button>
+                <Button type='submit' disabled={isLoading}>Entrar</Button>
             </div>
 
             <a className="login-link" href="/signup">Ainda não possui conta? Cadastre-se aqui!</a>

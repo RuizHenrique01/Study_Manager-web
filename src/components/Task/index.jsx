@@ -1,35 +1,39 @@
 import React, { useState } from 'react';
-import {TaskServices as taskServices} from '~/modules/task';
+import { TaskServices as taskServices } from '~/modules/task';
 import InfoTask from './InfoTask';
 import infoImage from '~/assets/info.svg';
 import crossImage from '~/assets/cross.svg';
 import DeleteTask from './DeleteTask';
 import './index.css';
 
-const Task = ({ task, id, idProject, token, checked }) => {
+const Task = ({ task, token }) => {
 
     const [isBoxIfonTaskOpen, setIsBoxIfonTaskOpen] = useState(false);
     const [isBoxDeleteTaskOpen, setIsBoxDeleteTaskOpen] = useState(false);
 
-    const handleOpenBoxInfoTask = () => {
+    function handleOpenBoxInfoTask() {
         setIsBoxIfonTaskOpen(!isBoxIfonTaskOpen);
     }
 
-    const handleOpenBoxDeleteTask= () => {
+    function handleOpenBoxDeleteTask() {
         setIsBoxDeleteTaskOpen(!isBoxDeleteTaskOpen);
     }
 
-    const updateTask = async () => {
-        await taskServices.updateTask({id, idProject, isCompleted: checked, token});
+    async function updateTask() {
+        await taskServices.updateTask({
+            id: task._id,
+            idProject: task.idProject,
+            isCompleted: task.isCompleted,
+            token
+        });
     }
 
     return (
         <>
             <div className="task-conteiner">
-
                 <input type="checkbox" onChange={updateTask} className="task-checkbox"
-                    id={id} tabIndex="1" defaultChecked={checked} />
-                <label className="task-title" htmlFor={id}>
+                    id={task._id} tabIndex="1" defaultChecked={task.isCompleted} />
+                <label className="task-title" htmlFor={task._id}>
                     <span className="task-check" />
                     <span>{task.name}</span>
                 </label>
@@ -44,9 +48,9 @@ const Task = ({ task, id, idProject, token, checked }) => {
 
             </div>
 
-            { isBoxIfonTaskOpen ? <InfoTask task={task} handleClickClose={handleOpenBoxInfoTask}/> : null }
+            {isBoxIfonTaskOpen && <InfoTask task={task} handleClickClose={handleOpenBoxInfoTask} />}
 
-            { isBoxDeleteTaskOpen ? <DeleteTask task={task} handleClickClose={handleOpenBoxDeleteTask}/> : null }
+            {isBoxDeleteTaskOpen && <DeleteTask task={task} handleClickClose={handleOpenBoxDeleteTask} />}
         </>
     );
 }

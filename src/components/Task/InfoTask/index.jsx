@@ -23,6 +23,7 @@ const InfoTask = ({ task, handleClickClose }) => {
     }
 
     const handleDate = (e) => {
+        console.log(task.date);
         setDate(e.target.value);
     }
 

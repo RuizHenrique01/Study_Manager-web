@@ -11,38 +11,33 @@ const Projects = ({ user_token }) => {
     const [projects, setProject] = useState([]);
     const [isBoxOpen, setIsBoxOpen] = useState(false);
 
-    const handleOpenBox = () => {
+    function handleOpenBox() {
         setIsBoxOpen(!isBoxOpen);
     }
 
-    const getProjects = async () => {
-        const { token } = user_token;
-
-        const data = await project.getProjects({ token });
-  
-        setProject(data.projects);
-    }
-
     useEffect(() => {
+        async function getProjects() {
+            const { token } = user_token;
+
+            const response = await project.getProjects({ token });
+
+            setProject(response?.projects);
+        }
 
         getProjects();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isBoxOpen]);
+    }, [isBoxOpen, user_token]);
 
     return (
         <>
             <main className="projects-main">
-
                 {
                     projects.map(result => {
-                        return <Project key={result._id} id={result._id} project={result} />
-                    }) 
+                        return <Project key={result._id} project={result} />
+                    })
                 }
-
                 <ButtonAdd handleClick={handleOpenBox} />
             </main>
-            {isBoxOpen ? <AddProject handleClickClose={handleOpenBox} token={user_token.token} /> : null}
+            {isBoxOpen && <AddProject handleClickClose={handleOpenBox} token={user_token.token} />}
         </>
     );
 };

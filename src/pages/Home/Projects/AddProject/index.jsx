@@ -13,18 +13,18 @@ const AddProject = ({ handleClickClose, token }) => {
     const [description, setDescription] = useState('');
     const [isUnValidated, setUnValidated] = useState(false);
 
-    const handleInputName = (e) => {
+    function handleInputName(e) {
         setUnValidated(false);
         setName(e.target.value);
     }
 
-    const handleInputDescription = (e) => {
+    function handleInputDescription(e) {
         setDescription(e.target.value);
     }
 
-    const createProject = async () => {
+    async function createProject() {
         if (name) {
-            await project.createProject({ name, description, token});
+            await project.createProject({ name, description, token });
 
             handleClickClose();
         } else {
@@ -48,7 +48,7 @@ const AddProject = ({ handleClickClose, token }) => {
                     required={true} autoComplete="off" />
             </div>
 
-            {isUnValidated ? <ErrorMessage>Name is required</ErrorMessage> : null}
+            {isUnValidated && <ErrorMessage>Name is required</ErrorMessage>}
 
             <label className="add-project-label">Descrição:</label>
             <div className="add-project-input">

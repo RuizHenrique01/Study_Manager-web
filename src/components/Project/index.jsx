@@ -6,21 +6,21 @@ import InfoProject from './InfoProject';
 import DeleteProject from './DeleteProject';
 import './index.css'
 
-const Project = ({ id, project }) => {
+const Project = ({ project }) => {
 
     const history = useHistory();
     const [isBoxIfonProjectOpen, setIsBoxIfonProjectOpen] = useState(false);
     const [isBoxDeleteProjectOpen, setIsBoxDeleteProjectOpen] = useState(false);
 
-    const redirectToTasks = () => {
-        return history.push('/project/' + id + '/tasks');
+    function redirectToTasks() {
+        return history.push('/project/' + project._id + '/tasks');
     }
 
-    const handleOpenBoxInfoProject = () => {
+    function handleOpenBoxInfoProject() {
         setIsBoxIfonProjectOpen(!isBoxIfonProjectOpen);
     }
 
-    const handleOpenBoxDeleteProject = () => {
+    function handleOpenBoxDeleteProject() {
         setIsBoxDeleteProjectOpen(!isBoxDeleteProjectOpen);
     }
 
@@ -40,9 +40,9 @@ const Project = ({ id, project }) => {
                 </button>
             </div>
 
-            {isBoxIfonProjectOpen ? <InfoProject project={project} handleClickClose={handleOpenBoxInfoProject}/> : null}
+            {isBoxIfonProjectOpen ? <InfoProject project={project} handleClickClose={handleOpenBoxInfoProject} /> : null}
 
-            {isBoxDeleteProjectOpen ? <DeleteProject project={project} handleClickClose={handleOpenBoxDeleteProject}/> : null}
+            {isBoxDeleteProjectOpen ? <DeleteProject project={project} handleClickClose={handleOpenBoxDeleteProject} /> : null}
         </>
     );
 };
