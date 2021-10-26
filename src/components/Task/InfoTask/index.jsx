@@ -13,18 +13,28 @@ const InfoTask = ({ task, handleClickClose }) => {
     const [date, setDate] = useState();
     const [isUnValidated, setUnValidated] = useState(false);
 
-    const handleInputName = (e) => {
+    function handleInputName(e) {
         setUnValidated(false);
         setName(e.target.value);
     }
 
-    const handleInputDescription = (e) => {
+    function handleInputDescription(e) {
+        console.log(dateFormatConverter());
         setDescription(e.target.value);
     }
 
-    const handleDate = (e) => {
-        console.log(task.date);
+    function handleDate(e) {
         setDate(e.target.value);
+    }
+
+    function dateFormatConverter() {
+        const date = new Date(task.date);
+
+        const day = date.getDate() < 10 ? "0" + (date.getDate() + 1) : date.getDate() + 1;
+        const month = date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        return `${year}-${month}-${day}`;
     }
 
     return (
@@ -54,7 +64,7 @@ const InfoTask = ({ task, handleClickClose }) => {
 
             <label className="add-task-label">Data de Entrega:</label>
             <div className="input-date-task">
-                <Input type="date" name="date" onChange={handleDate} value={task.date}/>
+                <Input type="date" name="date" onChange={handleDate} value={dateFormatConverter()} />
             </div>
 
             <div className="info-project-button">

@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import {TaskServices as task} from '~/modules/task';
+import { TaskServices as task } from '~/modules/task';
 import crossImage from '~/assets/cross.svg';
 import Box from '~/components/Box';
 import Input from '~/components/Input';
@@ -12,24 +12,24 @@ const AddTask = ({ handleClickClose, token, id }) => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState();
 
-    const handleName = (e) => {
+    function handleName(e) {
         setName(e.target.value);
     }
 
-    const handleDescription = (e) => {
+    function handleDescription(e) {
         setDescription(e.target.value);
     }
 
-    const handleDate = (e) => {
+    function handleDate(e) {
         setDate(e.target.value);
     }
 
-    const createTask = async () => {
+    async function createTask() {
         if (name) {
-            await task.createTask({idProject: id, name, description, date, token});
+            await task.createTask({ idProject: id, name, description, date, token });
 
             handleClickClose();
-        } 
+        }
     }
 
     return (
@@ -54,7 +54,7 @@ const AddTask = ({ handleClickClose, token, id }) => {
 
             <label className="add-task-label">Data de Entrega:</label>
             <div className="input-date-task">
-                <Input type="date" name="date" onChange={handleDate}/>
+                <Input type="date" name="date" onChange={handleDate} />
             </div>
 
             <div className="add-task-button">
