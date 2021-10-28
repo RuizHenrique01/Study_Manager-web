@@ -38,7 +38,6 @@ const Tasks = ({ user_token }) => {
             <main className="tasks-main">
                 {
                     tasks.map(result => {
-                        console.log(result);
                         return <Task key={result._id} task={result} token={user_token.token} />
                     })
                 }

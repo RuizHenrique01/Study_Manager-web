@@ -8,18 +8,20 @@ import './index.css';
 
 const InfoTask = ({ task, handleClickClose }) => {
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [date, setDate] = useState();
+    const [name, setName] = useState(task.name);
+    const [description, setDescription] = useState(task.description);
+    const [date, setDate] = useState(task.date);
     const [isUnValidated, setUnValidated] = useState(false);
+    const [isDisabledButton, setIsDisabledButton] = useState(false);
 
     function handleInputName(e) {
-        setUnValidated(false);
+        if (name !== task.name) {
+            setIsDisabledButton(true);
+        }
         setName(e.target.value);
     }
 
     function handleInputDescription(e) {
-        console.log(dateFormatConverter());
         setDescription(e.target.value);
     }
 
@@ -28,11 +30,11 @@ const InfoTask = ({ task, handleClickClose }) => {
     }
 
     function dateFormatConverter() {
-        const date = new Date(task.date);
+        const dateTask = new Date(date);
 
-        const day = date.getDate() < 10 ? "0" + (date.getDate() + 1) : date.getDate() + 1;
-        const month = date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        const year = date.getFullYear();
+        const day = dateTask.getDate() < 10 ? "0" + (dateTask.getDate() + 1) : dateTask.getDate() + 1;
+        const month = dateTask.getMonth() < 10 ? "0" + (dateTask.getMonth() + 1) : dateTask.getMonth() + 1;
+        const year = dateTask.getFullYear();
 
         return `${year}-${month}-${day}`;
     }
@@ -50,7 +52,7 @@ const InfoTask = ({ task, handleClickClose }) => {
 
             <label className="info-task-label">Nome:</label>
             <div className="info-task-input">
-                <Input type="text" name="name" value={task.name}
+                <Input type="text" name="name" value={name}
                     onChange={handleInputName} required={true} autoComplete="off" />
             </div>
 
@@ -58,7 +60,7 @@ const InfoTask = ({ task, handleClickClose }) => {
 
             <label className="info-task-label">Descrição:</label>
             <div className="info-task-input">
-                <Input type="text" name="description" value={task.description}
+                <Input type="text" name="description" value={description}
                     onChange={handleInputDescription} autoComplete="off" />
             </div>
 
@@ -68,7 +70,7 @@ const InfoTask = ({ task, handleClickClose }) => {
             </div>
 
             <div className="info-project-button">
-                <Button type='button' disabled={true}>
+                <Button type='button' disabled={isDisabledButton}>
                     Salvar
                 </Button>
             </div>

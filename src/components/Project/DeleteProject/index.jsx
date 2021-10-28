@@ -4,7 +4,7 @@ import DeleteMessage from '../../DeleteMessage';
 import Button from '../../Button';
 import './index.css';
 
-const DeleteProject = ({ project, handleClickClose }) => {
+const DeleteProject = ({ project, handleClickClose, handleClick }) => {
     return (
         <DeleteMessage handleClick={handleClickClose}>
 
@@ -17,9 +17,12 @@ const DeleteProject = ({ project, handleClickClose }) => {
             <p className='message-delete-project'>Clicando no botão de confirmação o projeto será excluido com todas as suas informações permanentemente!</p>
 
             <div className="buttons-delete-project">
-                <Button>Sim</Button>
+                <Button type='button' handleClick={() => {
+                    handleClick();
+                    handleClickClose();
+                }}>Sim</Button>
 
-                <Button>Cancelar</Button>
+                <Button type='button' handleClick={handleClickClose}>Cancelar</Button>
             </div>
         </DeleteMessage>
     );

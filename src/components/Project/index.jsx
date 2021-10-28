@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { ProjectServices as projectServices } from '~/modules/project';
 import infoImage from '~/assets/info.svg';
 import crossImage from '~/assets/cross.svg';
 import InfoProject from './InfoProject';
 import DeleteProject from './DeleteProject';
 import './index.css'
 
-const Project = ({ project }) => {
+const Project = ({ project, token }) => {
 
     const history = useHistory();
     const [isBoxIfonProjectOpen, setIsBoxIfonProjectOpen] = useState(false);
@@ -22,6 +23,10 @@ const Project = ({ project }) => {
 
     function handleOpenBoxDeleteProject() {
         setIsBoxDeleteProjectOpen(!isBoxDeleteProjectOpen);
+    }
+
+    async function deleteProject() {
+        await projectServices.deleteProject({ id: project._id, token });
     }
 
     return (
@@ -40,9 +45,10 @@ const Project = ({ project }) => {
                 </button>
             </div>
 
-            {isBoxIfonProjectOpen ? <InfoProject project={project} handleClickClose={handleOpenBoxInfoProject} /> : null}
+            {isBoxIfonProjectOpen ? <InfoProject project={project} handleClickClose={handleOpenBoxInfoProject} token={token} /> : null}
 
-            {isBoxDeleteProjectOpen ? <DeleteProject project={project} handleClickClose={handleOpenBoxDeleteProject} /> : null}
+            {isBoxDeleteProjectOpen ? <DeleteProject project={project}
+                handleClickClose={handleOpenBoxDeleteProject} handleClick={deleteProject} /> : null}
         </>
     );
 };

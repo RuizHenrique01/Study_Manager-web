@@ -25,14 +25,14 @@ const Projects = ({ user_token }) => {
         }
 
         getProjects();
-    }, [isBoxOpen, user_token]);
+    }, [isBoxOpen, user_token, projects]);
 
     return (
         <>
             <main className="projects-main">
                 {
                     projects.map(result => {
-                        return <Project key={result._id} project={result} />
+                        return <Project key={result._id} project={result} token={user_token.token} />
                     })
                 }
                 <ButtonAdd handleClick={handleOpenBox} />

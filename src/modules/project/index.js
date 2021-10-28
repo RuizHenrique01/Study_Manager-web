@@ -7,7 +7,7 @@ export const ProjectServices = {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
-        });
+        }).catch(error => error);
 
         return response.data;
     },
@@ -21,7 +21,31 @@ export const ProjectServices = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-        });
+        }).catch(error => error);
+
+        return response.data;
+    },
+
+    async updateProject({ id, name, description, token }) {
+        const response = await instance.patch('/projects/' + id, {
+            name,
+            description
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        }).catch(error => error);
+
+        return response.data;
+    },
+
+    async deleteProject({ id, token }) {
+        const response = await instance.delete('/projects/' + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        }).catch(error => error);
 
         return response.data;
     }
