@@ -1,10 +1,22 @@
 import React from 'react';
+import { TaskServices as taskServices } from '~/modules/task';
 import crossImage from '~/assets/cross.svg';
 import DeleteMessage from '../../DeleteMessage';
 import Button from '../../Button';
 import './index.css';
 
-const DeleteTask = ({ task, handleClickClose }) => {
+const DeleteTask = ({ task, handleClickClose, token }) => {
+
+    async function deleteTask() {
+        await taskServices.deleteTask({
+            id: task._id,
+            idProject: task.idProject,
+            token
+        });
+
+        handleClickClose();
+    }
+
     return (
         <DeleteMessage handleClick={handleClickClose}>
 
@@ -17,9 +29,9 @@ const DeleteTask = ({ task, handleClickClose }) => {
             <p className='message-delete-task'>Clicando no botão de confirmação a tarefa será excluida permanentemente!</p>
 
             <div className="buttons-delete-task">
-                <Button>Sim</Button>
+                <Button type='button' handleClick={deleteTask}>Sim</Button>
 
-                <Button>Cancelar</Button>
+                <Button type='button' handleClick={handleClickClose}>Cancelar</Button>
             </div>
         </DeleteMessage>
     );

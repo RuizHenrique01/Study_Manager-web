@@ -22,6 +22,6 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 
 const store = createStore(persistedReducer);
 
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
 export { store, persistor };

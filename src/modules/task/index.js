@@ -27,14 +27,27 @@ export const TaskServices = {
         return response.data;
     },
 
-    async updateTask({ id, idProject, isCompleted, token }) {
+    async updateTask({ id, idProject, name, description, date, isCompleted, token }) {
         const response = await instance.patch("/projects/" + idProject + "/task/" + id, {
-            isCompleted: !isCompleted
+            isCompleted: isCompleted,
+            name,
+            description,
+            date
         }, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         }).catch(error => error);
+
+        return response.data;
+    },
+    async deleteTask({ id, idProject, token }) {
+        const response = await instance.delete("/projects/" + idProject + "/task/" + id,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }).catch(error => error);
 
         return response.data;
     }

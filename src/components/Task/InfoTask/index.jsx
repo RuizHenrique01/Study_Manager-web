@@ -1,23 +1,35 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import crossImage from '~/assets/cross.svg';
 import Box from '../../Box';
 import Input from '../../Input';
 import Button from '../../Button';
 import ErrorMessage from '../../ErrorMessage';
 import './index.css';
+import { TaskServices } from '~/modules/task';
 
-const InfoTask = ({ task, handleClickClose }) => {
+function dateFormatConverter(data) {
+    if (data) {
+        const dateTask = new Date(data);
+
+        const day = dateTask.getDate() < 10 ? "0" + (dateTask.getDate() + 1) : dateTask.getDate() + 1;
+        const month = dateTask.getMonth() < 10 ? "0" + (dateTask.getMonth() + 1) : dateTask.getMonth() + 1;
+        const year = dateTask.getFullYear();
+
+        return `${year}-${month}-${day}`;
+    } else {
+        return '';
+    }
+}
+
+const InfoTask = ({ task, handleClickClose, token }) => {
 
     const [name, setName] = useState(task.name);
     const [description, setDescription] = useState(task.description);
-    const [date, setDate] = useState(task.date);
+    const [date, setDate] = useState(dateFormatConverter(task.date));
     const [isUnValidated, setUnValidated] = useState(false);
-    const [isDisabledButton, setIsDisabledButton] = useState(false);
+    const [isDisabledButton, setIsDisabledButton] = useState(true);
 
     function handleInputName(e) {
-        if (name !== task.name) {
-            setIsDisabledButton(true);
-        }
         setName(e.target.value);
     }
 
@@ -29,14 +41,35 @@ const InfoTask = ({ task, handleClickClose }) => {
         setDate(e.target.value);
     }
 
-    function dateFormatConverter() {
-        const dateTask = new Date(date);
+    useEffect(() => {
+        if (name !== task.name
+            || description !== task.description
+            || date !== dateFormatConverter(task.date)) {
+            setIsDisabledButton(false);
+        } else {
+            setIsDisabledButton(true);
+        }
 
-        const day = dateTask.getDate() < 10 ? "0" + (dateTask.getDate() + 1) : dateTask.getDate() + 1;
-        const month = dateTask.getMonth() < 10 ? "0" + (dateTask.getMonth() + 1) : dateTask.getMonth() + 1;
-        const year = dateTask.getFullYear();
+        if (!name) {
+            setUnValidated(true);
+            setIsDisabledButton(true);
+        } else {
+            setUnValidated(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name, description, date]);
 
-        return `${year}-${month}-${day}`;
+    async function updateTask() {
+        await TaskServices.updateTask({
+            id: task._id,
+            idProject: task.idProject,
+            name,
+            description,
+            date,
+            token
+        });
+
+        handleClickClose();
     }
 
     return (
@@ -66,11 +99,11 @@ const InfoTask = ({ task, handleClickClose }) => {
 
             <label className="add-task-label">Data de Entrega:</label>
             <div className="input-date-task">
-                <Input type="date" name="date" onChange={handleDate} value={dateFormatConverter()} />
+                <Input type="date" name="date" onChange={handleDate} value={date} />
             </div>
 
             <div className="info-project-button">
-                <Button type='button' disabled={isDisabledButton}>
+                <Button type='button' handleClick={updateTask} disabled={isDisabledButton}>
                     Salvar
                 </Button>
             </div>

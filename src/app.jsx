@@ -11,6 +11,7 @@ import Perfil from './pages/Perfil';
 const App = () => {
     return (
         <Provider store={store}>
+            {console.log(persistor.getState())}
             <PersistGate loading={null} persistor={persistor}>
                 <Router>
                     <Route path={["/", "/login"]} exact component={Login} />

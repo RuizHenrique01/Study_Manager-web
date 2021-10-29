@@ -31,7 +31,7 @@ const Tasks = ({ user_token }) => {
 
         getTasks();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isBoxOpen]);
+    }, [isBoxOpen, tasks]);
 
     return (
         <>

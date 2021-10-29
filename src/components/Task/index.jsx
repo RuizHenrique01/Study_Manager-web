@@ -23,7 +23,7 @@ const Task = ({ task, token }) => {
         await taskServices.updateTask({
             id: task._id,
             idProject: task.idProject,
-            isCompleted: task.isCompleted,
+            isCompleted: !task.isCompleted,
             token
         });
     }
@@ -48,9 +48,9 @@ const Task = ({ task, token }) => {
 
             </div>
 
-            {isBoxIfonTaskOpen && <InfoTask task={task} handleClickClose={handleOpenBoxInfoTask} />}
+            {isBoxIfonTaskOpen && <InfoTask task={task} handleClickClose={handleOpenBoxInfoTask} token={token} />}
 
-            {isBoxDeleteTaskOpen && <DeleteTask task={task} handleClickClose={handleOpenBoxDeleteTask} />}
+            {isBoxDeleteTaskOpen && <DeleteTask task={task} handleClickClose={handleOpenBoxDeleteTask} token={token} />}
         </>
     );
 }
