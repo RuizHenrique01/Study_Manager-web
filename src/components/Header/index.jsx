@@ -1,8 +1,8 @@
 import React from 'react';
-import './index.css'
-
 import { useHistory } from "react-router-dom";
-import userImage from '~/assets/user.svg'
+import userImage from '~/assets/user.svg';
+import Menu from './Menu';
+import './index.css'
 
 const Header = () => {
 
@@ -17,6 +17,8 @@ const Header = () => {
             <button className="home-header-button" type='button' onClick={handlePerfil}>
                 <img className="home-header-image" src={userImage} alt="Imagem do Usuário" />
             </button>
+
+            <Menu />
         </header>
     );
 };
