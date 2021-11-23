@@ -3,10 +3,27 @@
   height: auto;
   background-color: var(--surface-color);
   display: flex;
+  flex-direction: row;
   padding: 1em 0.5em;
   justify-content: flex-end;
-  position: relative;
+  align-items: center;
   box-sizing: border-box;
+}
+
+.home-header-option {
+  font-size: 1em;
+  color: white;
+  margin: 0 1em;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+
+.home-header-option:nth-child(1) {
+  margin-right: auto;
+}
+
+.home-header-option:hover {
+  color: var(--secondary-color);
 }
 
 .home-header-button {
