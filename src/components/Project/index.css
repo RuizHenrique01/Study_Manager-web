@@ -1,32 +1,38 @@
-.project-conteiner{
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    background-color: var(--surface-color);
-    padding: .5em 1em;
-    margin: .5em 0;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
+.project-conteiner {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  background-color: var(--surface-color);
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-.project-title{
-    font-size: 1em;
-    font-weight: normal;
-    color: white;
-    flex: 2;
+.project-title {
+  font-size: 1em;
+  font-weight: normal;
+  color: white;
+  flex: 2;
+  transition: color 0.5s ease;
 }
 
-.project-button{
-    width: 1em;
-    height: 1em;
-    padding: 0;
-    border: none;
-    margin-left: 1em;
-    background-color: transparent;
+.project-conteiner:hover .project-title {
+  color: var(--secondary-color);
 }
 
-.project-icon{
-    width: 100%;
-    height: 100%;
+.project-button {
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  border: none;
+  margin-left: 1em;
+  background-color: transparent;
+}
+
+.project-icon {
+  width: 100%;
+  height: 100%;
 }

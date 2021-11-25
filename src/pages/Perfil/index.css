@@ -1,5 +1,6 @@
 .perfil-main {
-  width: 100%;
+  width: 80%;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
@@ -54,7 +55,6 @@
 @media screen and (min-width: 48em) {
   .perfil-main {
     width: 80%;
-    margin: auto;
   }
 
   .perfil-flex {
